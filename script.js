@@ -1,13 +1,11 @@
-function test(){
-    //RETRIVING THE DATA
-    var uid=document.getElementById("username").value;
-    var em=document.getElementById("email").value;
-    var pw=document.getElementById("password").value;
-    alert(uid+em+pw);
-//STORING THE DATE IN LOCALSTORAGE
+let myobj={
+    name:"haritha",
+    age:26
+};
+let myobj_serialized=JSON.stringify(myobj);
+console.log(myobj_serialized);
+   localStorage.setItem("myobj",myobj_serialized);
+console.log(localStorage);
 
-var user=localStorage.setItem("uid",uid);
-var user=localStorage.setItem("em",em);
-var user=localStorage.setItem("pw",pw); 
-
-}
+let myobj_deserialized=JSON.parse(localStorage.getItem(myobj));
+console.log(myobj_deserialized);
