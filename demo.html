@@ -7,12 +7,46 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="text" id="username" placeholder="username"><br>
-    <input type="email" id="email" placeholder="email"><br>
-    <input type="password" id="password" placeholder="password"><br>
-    <input type="submit" onclick="test()">
+    <form onsubmit="saveToLocalStorage(event)">
+    <label>name</label>
+    <input type="text" id="username" required/>
+    <label>email</label>
+    <input type="email" id="email" required/>
+    <label>phonenumber</label>
+    <input type="phonenumber" id="phonenumber" required/>
+    <input type="submit">
+    </form>
     <ul id="list of items"></ul>
-    <script src="script.js"></script>
-</body>
+    <script>
+        function saveToLocalStorage(event){
+            event.preventDefault();
+            const name=event.target.username.value;
+            const email=event.target.email.value;
+            const phonenumber=event.target.phonenumber.value;
+            const obj={
+                name,
+                email,
+                phonenumber
+            }
+            localStorage.setItem(obj.email,JSON.stringify(obj));
+            ShowUserOnScreen(obj);
+                 
+        }function ShowUserOnScreen(obj){
+                    const parentElem=document.getElementById("list of items");
+                    const childElem=document.createElement('li');
+                    childElem.textContent=obj.name+'-'+obj.email+'-'+obj.phonenumber;
 
+                    const deleteButton=document.createElement('input');
+                    deleteButton.type="button";
+                    deleteButton.value='Delete';
+                    deleteButton.onclick=()=>{
+                        localStorage.removeItem(obj.email);
+                        parentElem.removeChild(childElem);
+                    }
+                    childElem.appendChild(deleteButton);
+
+                    parentElem.appendChild(childElem);
+        }  
+    </script>
+</body>
 </html>
